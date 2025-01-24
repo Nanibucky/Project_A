@@ -1,0 +1,14 @@
+langchain-community
+langchain-openai
+langchain-core
+psycopg2
+psycopg2-binary
+langchain 
+sqlalchemy  
+pymysql
+PYPDF2
+faiss-cpu
+sklearn
+pypdf
+llama-index
+llama-index-llms-langchain
