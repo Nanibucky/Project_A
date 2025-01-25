@@ -583,8 +583,7 @@ if __name__ == "__main__":
     
     # Test queries
     test_queries = [
-        "Who is Ilya Sutskever, What is the revenue in the year 2021, and Who is the artist for Walking Into Clarksdale?",
-        "List the top 5 customers who have spent the most, including their total spending, and the genres of music they purchased most frequently?"
+        "What is the revenue in the year 2021? "
     ]
     
     for query in test_queries:
