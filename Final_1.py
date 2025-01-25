@@ -576,8 +576,8 @@ if __name__ == "__main__":
     # Initialize the agent
     config = Config()
     agent = HybridAgent(
-        database_uri="postgresql://postgres:NANIbucky%40662000@localhost:5432/chinook",
-        docs_directory="/Users/tharun/Desktop/Research_papers",
+        database_uri="postgresql://username:password@localhost:5432/database",
+        docs_directory="/docs",
         config=config
     )
     
