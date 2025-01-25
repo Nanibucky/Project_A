@@ -309,7 +309,9 @@ class QueryRouter:
             'comparison': r'\b(more than|less than|greater|highest|lowest)\b',
             'temporal': r'\b(when|date|year|month|time|period)\b',
             'numerical': r'\b(how many|how much|price|cost|revenue|sales)\b',
-            'music': r'\b(artist|track|album|song|genre|playlist)\b'
+            'music': r'\b(artist|track|album|song|genre|playlist)\b',
+            'customer': r'\b(customer|client|buyer|purchase|spending)\b',
+            'genre': r'\b(genre|category|type|style)\b'
         }
         self.rag_patterns = {
             'conceptual': r'\b(what is|explain|describe|how does)\b',
@@ -379,10 +381,15 @@ class QueryDecomposer:
             api_key=config.OPENAI_API_KEY
         )
     
+    def is_complex_query(self, query: str) -> bool:
+        """Determine if the query is complex and needs decomposition."""
+        # A query is complex if it contains multiple clauses or asks for multiple pieces of information
+        return len(query.split(",")) > 1 or len(query.split(" and ")) > 1
+    
     def decompose(self, query: str) -> List[str]:
         """Break down a complex query into individual sub-queries."""
         prompt = f"""
-        You are a helpful assistant. Break down the following complex query into individual sub-queries:
+        You are a helpful assistant. Break down the following complex query into clear and actionable sub-queries:
         Query: "{query}"
         Sub-queries:
         """
@@ -456,24 +463,36 @@ class HybridAgent:
         try:
             self.logger.info(f"Processing query: {query}")
             
-            # Decompose the query into sub-queries
-            sub_queries = self.decomposer.decompose(query)
-            self.logger.info(f"Decomposed sub-queries: {sub_queries}")
-            
-            # Process each sub-query
-            results = []
-            for sub_query in sub_queries:
-                result = self._process_sub_query(sub_query)
-                results.append((sub_query, result))  # Store sub-query and its result
-            
-            # Combine the results
-            combined_content = self._format_results(results)
-            return QueryResult(
-                content=combined_content,
-                confidence=min(r.confidence for _, r in results),
-                source='hybrid',
-                metadata={'sub_queries': len(sub_queries)}
-            )
+            # Check if the query is complex and needs decomposition
+            if self.decomposer.is_complex_query(query):
+                self.logger.info("Query is complex. Decomposing into sub-queries.")
+                sub_queries = self.decomposer.decompose(query)
+                self.logger.info(f"Decomposed sub-queries: {sub_queries}")
+                
+                # Process each sub-query
+                results = []
+                for sub_query in sub_queries:
+                    result = self._process_sub_query(sub_query)
+                    results.append((sub_query, result))  # Store sub-query and its result
+                
+                # Combine the results
+                combined_content = self._format_results(results)
+                return QueryResult(
+                    content=combined_content,
+                    confidence=min(r.confidence for _, r in results),
+                    source='hybrid',
+                    metadata={'sub_queries': len(sub_queries)}
+                )
+            else:
+                # Process the query as a single unit
+                self.logger.info("Query is simple. Processing as a single unit.")
+                result = self._process_sub_query(query)
+                return QueryResult(
+                    content=result.content,
+                    confidence=result.confidence,
+                    source=result.source,
+                    metadata={'sub_queries': 1}
+                )
             
         except Exception as e:
             self.logger.error(f"Error processing query: {e}")
@@ -564,7 +583,8 @@ if __name__ == "__main__":
     
     # Test queries
     test_queries = [
-        "Who is Alex Krizhevsky, What is the revenue in the year 2021, and Who is the artist for Walking Into Clarksdale?"
+        "Who is Ilya Sutskever, What is the revenue in the year 2021, and Who is the artist for Walking Into Clarksdale?",
+        "List the top 5 customers who have spent the most, including their total spending, and the genres of music they purchased most frequently?"
     ]
     
     for query in test_queries:
