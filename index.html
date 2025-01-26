@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Agent System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff6b6b, #f8e71c, #7ed321, #4a90e2, #9013fe);
+            background-size: 1000% 1000%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            color: #fff;
+            font-size: 2.5rem;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+        }
+        .form-control::placeholder {
+            color: #ddd;
+        }
+        .btn-primary {
+            background: #ff6b6b;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 18px;
+            transition: background 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #ff4757;
+        }
+        .robot {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: url('https://i.imgur.com/6K7t7R1.png') no-repeat center;
+            background-size: contain;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .robot-look-query {
+            background: url('https://i.imgur.com/6K7t7R1.png') no-repeat center;
+            background-size: contain;
+        }
+        .robot-look-us {
+            background: url('https://i.imgur.com/6K7t7R1.png') no-repeat center;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-5">
+            <div class="card-body text-center">
+                <h1 class="card-title">Hybrid Agent System</h1>
+                <form action="/" method="POST">
+                    <div class="form-group">
+                        <label for="db_uri">Database URI</label>
+                        <input type="text" class="form-control" id="db_uri" name="db_uri" required placeholder="Enter your Database URI">
+                    </div>
+                    <div class="form-group">
+                        <label for="docs_path">Documents Path</label>
+                        <input type="text" class="form-control" id="docs_path" name="docs_path" required placeholder="Enter your Documents Path">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Initialize Agent</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="robot" id="robot"></div>
+    <script>
+        document.getElementById('db_uri').addEventListener('focus', function() {
+            document.getElementById('robot').classList.add('robot-look-query');
+            document.getElementById('robot').classList.remove('robot-look-us');
+        });
+        document.getElementById('db_uri').addEventListener('blur', function() {
+            document.getElementById('robot').classList.remove('robot-look-query');
+            document.getElementById('robot').classList.add('robot-look-us');
+        });
+        document.getElementById('docs_path').addEventListener('focus', function() {
+            document.getElementById('robot').classList.add('robot-look-query');
+            document.getElementById('robot').classList.remove('robot-look-us');
+        });
+        document.getElementById('docs_path').addEventListener('blur', function() {
+            document.getElementById('robot').classList.remove('robot-look-query');
+            document.getElementById('robot').classList.add('robot-look-us');
+        });
+    </script>
+</body>
+</html>
