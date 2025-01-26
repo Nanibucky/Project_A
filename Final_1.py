@@ -568,27 +568,27 @@ class HybridAgent:
                 )
         return "\n".join(formatted_results)
 
-###################
-# Example Usage
-###################
+# ###################
+# # Example Usage
+# ###################
 
-if __name__ == "__main__":
-    # Initialize the agent
-    config = Config()
-    agent = HybridAgent(
-        database_uri="postgresql://username:password@localhost:5432/database",
-        docs_directory="/docs",
-        config=config
-    )
+# if __name__ == "__main__":
+#     # Initialize the agent
+#     config = Config()
+#     agent = HybridAgent(
+#         database_uri="postgresql://username:password@localhost:5432/database",
+#         docs_directory="/docs",
+#         config=config
+#     )
     
-    # Test queries
-    test_queries = [
-        "What is the revenue in the year 2021? "
-    ]
+#     # Test queries
+#     test_queries = [
+#         "What is the revenue in the year 2021? "
+#     ]
     
-    for query in test_queries:
-        result = agent.process_query(query)
-        print(f"\nQuery: {query}")
-        print(f"Source: {result.source}")
-        print(f"Confidence: {result.confidence:.2f}")
-        print(f"Response:\n{result.content}")
+#     for query in test_queries:
+#         result = agent.process_query(query)
+#         print(f"\nQuery: {query}")
+#         print(f"Source: {result.source}")
+#         print(f"Confidence: {result.confidence:.2f}")
+#         print(f"Response:\n{result.content}")
