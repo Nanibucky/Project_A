@@ -76,7 +76,7 @@ class Config(BaseModel):
     DEEPSEEK_API_KEY: str = os.getenv("DEEPSEEK_API_KEY", "")
     # e.g. "gpt-4", "gpt-3.5-turbo", or any advanced "O1" model name
     LLM_MODEL: str = "gpt-3.5-turbo"
-    TEMPERATURE: float = 0.7
+    TEMPERATURE  = 0
     CHUNK_SIZE: int = 500
     CHUNK_OVERLAP: int = 100
     CACHE_SIZE: int = 100
