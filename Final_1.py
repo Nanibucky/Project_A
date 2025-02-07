@@ -42,10 +42,8 @@ from langchain.retrievers import EnsembleRetriever
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-# Because some LangChain versions differ in pydantic usage
 from langchain_core.pydantic_v1 import BaseModel
 
-# Instead of standard LC chat_models/embeddings, we use these:
 from langchain_community.chat_models import ChatOpenAI
 from langchain_community.embeddings import OpenAIEmbeddings
 
