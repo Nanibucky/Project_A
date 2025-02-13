@@ -97,14 +97,14 @@ class QueryResult:
     - confidence: numeric confidence in the answer
     - source: 'sql', 'rag', 'greeting', 'guardrail', 'error', etc.
     - metadata: any extra info
-    - timestamp: when the answer was produced
+    - timestamp: when  was the answer produced 
     """
     content: str
     confidence: float
     source: str
     metadata: Dict
     timestamp: datetime = datetime.now()
-
+    
 @dataclass
 class SchemaInfo:
     """Database schema information."""
