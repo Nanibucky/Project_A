@@ -15,22 +15,22 @@ from pathlib import Path
 
 # -----------------------------
 # Optional LlamaIndex (GPT Index) imports
-# -----------------------------
-try:
-    from llama_index import (
-        VectorStoreIndex,
-        SQLStructStoreIndex,
-        RouterRetriever,
-        ServiceContext,
-        RouterPrompt
-    )
-    from llama_index.llms import OpenAI as LlamaIndexOpenAI
-    LLAMA_INDEX_AVAILABLE = True
-except ImportError:
-    LLAMA_INDEX_AVAILABLE = False
+# # -----------------------------
+# try:
+#     from llama_index import (
+#         VectorStoreIndex,
+#         SQLStructStoreIndex,
+#         RouterRetriever,
+#         ServiceContext,
+#         RouterPrompt
+#     )
+#     from llama_index.llms import OpenAI as LlamaIndexOpenAI
+#     LLAMA_INDEX_AVAILABLE = True
+# except ImportError:
+#     LLAMA_INDEX_AVAILABLE = False
 
-# -----------------------------
-# LangChain / Community imports
+# # -----------------------------
+# # LangChain / Community imports
 # -----------------------------
 from langchain_community.utilities import SQLDatabase
 from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
